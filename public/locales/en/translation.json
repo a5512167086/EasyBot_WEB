@@ -1,0 +1,63 @@
+{
+  "header": {
+    "home": "Home",
+    "signIn": "Sign In",
+    "signUp": "Sign Up"
+  },
+  "homePage": {
+    "hero": {
+      "title": "Create your own intelligent chatbot",
+      "subtitle": "No Coding experience, Quick start!",
+      "description": "Our platform makes it easy to build and manage chatbots, supporting a wide range of application scenarios, whether it's customer service, autoresponders, e-commerce, our platform has you covered!"
+    },
+    "overview": {
+      "title": "Professional Customized Modules"
+    }
+  },
+  "signPage": {
+    "google": "Continue with Google",
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "forgotYourPassword": "Forgot Your Password?",
+    "forgotPasswordHint": "Enter your email address and we will send you a password reset letter.",
+    "forgotPassword": "Forgot password?",
+    "sendPasswordResetEmail": "Send Reset Password Email",
+    "notHaveAccount": "Don't have an account? Sign Up",
+    "haveAccount": "Already have an account? Sign In",
+    "rememberMe": "Remember Me",
+    "email": "Email",
+    "password": "Password",
+    "fullName": "Full Name",
+    "confirmPassword": "Confirm Password"
+  },
+  "botPage": {
+    "addBot": "Add New Not",
+    "myBot": "My Bots",
+    "myModule": "My Modules",
+    "botName": "Bot Name",
+    "channelId": "Channel ID",
+    "channelSecret": "Channel Secret",
+    "channelAccessToken": "Channel Access Token",
+    "seeTutorial": "See Tutorial"
+  },
+  "notFoundPage": {
+    "title": "Page Not Found",
+    "description": "Oops! The page you are looking for doesn't exist. It might have been moved or deleted, or you may have typed the URL incorrectly."
+  },
+  "common": {
+    "loading": "Loading...",
+    "enable": "Enable",
+    "cancel": "Cancel",
+    "done": "Done",
+    "setting": "Setting",
+    "or": "OR",
+    "feature": {
+      "faqTitle": "FAQ Moudle",
+      "faqDescription": "The FAQ module incorporates AI's RAG (Retrieval Augmented Generation) system, which is able to retrieve relevant answers from the database in real-time and provide accurate and natural responses through generative techniques. Whether it's a frequently asked question or specialized knowledge, this module handles it with ease and ensures that users receive satisfactory answers.”",
+      "ecommTitle": "Ecomm Module",
+      "ecommDescription": "The e-commerce module helps you track customer behavior, predict sales trends, and automatically generate customer feedback reports through AI data analytics, while merchants can effectively manage inventory, increase conversion rates, and provide a personalized shopping experience.",
+      "reservationTitle": "Reservation Module",
+      "reservationDescription": "The Reservation Module makes it easy to manage all kinds of bookings and arrangements. From the customer's point of view, the booking process is simple and fast, and the support of notification function ensures that you will not miss any important appointments."
+    }
+  }
+}

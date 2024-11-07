@@ -1,0 +1,63 @@
+{
+  "header": {
+    "home": "首頁",
+    "signIn": "登入",
+    "signUp": "註冊"
+  },
+  "homePage": {
+    "hero": {
+      "title": "打造專屬智慧對話體驗",
+      "subtitle": "無需Coding經驗，快速上手！",
+      "description": "我們的平台讓您能輕鬆建立和管理聊天機器人，支援多種應用場景，無論是客戶服務、自動回應、電子商務，我們的平台都能滿足您的需求"
+    },
+    "overview": {
+      "title": "專業的客製化模組"
+    }
+  },
+  "signPage": {
+    "google": "透過 Google 登入",
+    "signIn": "登入",
+    "signUp": "註冊",
+    "forgotYourPassword": "忘記你的密碼了嗎?",
+    "forgotPasswordHint": "輸入你的電子郵件後我們會寄一封密碼重設信件到您的信箱",
+    "forgotPassword": "忘記密碼",
+    "sendPasswordResetEmail": "送出重設密碼信件",
+    "notHaveAccount": "還沒有帳號嗎? 前往註冊",
+    "haveAccount": "已經有帳號了嗎? 前往登入",
+    "rememberMe": "記住我",
+    "email": "電子信箱",
+    "password": "密碼",
+    "fullName": "名字",
+    "confirmPassword": "確認密碼"
+  },
+  "botPage": {
+    "addBot": "新增機器人",
+    "myBot": "我的機器人",
+    "myModule": "我的模組",
+    "botName": "機器人名字",
+    "channelId": "Channel ID",
+    "channelSecret": "Channel Secret",
+    "channelAccessToken": "Channel Access Token",
+    "seeTutorial": "查看教學"
+  },
+  "notFoundPage": {
+    "title": "查無此頁面",
+    "description": "哎呀！您正在尋找的頁面並不存在。它可能已被移動或刪除了，或者您輸入的 URL 不正確。"
+  },
+  "common": {
+    "loading": "載入中...",
+    "enable": "啟用",
+    "cancel": "取消",
+    "done": "完成",
+    "or": "或者",
+    "setting": "設定",
+    "feature": {
+      "faqTitle": "問答模組",
+      "faqDescription": "問答模組結合了AI的RAG (檢索增強生成) 系統，能夠即時從資料庫中檢索出相關答案，並通過生成技術提供精確和自然的回應。無論是常見問題還是專業知識，這個模組都能輕鬆處理，確保用戶得到滿意的解答。",
+      "ecommTitle": "電商模組",
+      "ecommDescription": "電商模組透過AI數據分析功能，幫助您追蹤客戶行為、預測銷售趨勢、並自動生成客戶反饋報告，同時商家也能有效地管理庫存、提升轉換率，並提供個性化的購物體驗。",
+      "reservationTitle": "預約模組",
+      "reservationDescription": "預約模組讓您輕鬆管理各類預訂和安排，從客戶的角度來說，預訂過程簡單快速，支援通知功能，確保不會錯過任何重要的預約。"
+    }
+  }
+}
