@@ -7,11 +7,9 @@ import {
   useTheme
 } from '@mui/material'
 import { SELECT_LANGUAGES_LIST } from '@/configs/common'
-import { useTranslation } from 'react-i18next'
 import i18n from '@/configs/i18n'
 
 export const LanguageChanger = () => {
-  const { t } = useTranslation()
   const theme = useTheme()
   const smUp = useMediaQuery(theme.breakpoints.up('sm'))
   const smDown = useMediaQuery(theme.breakpoints.down('sm'))
@@ -46,7 +44,7 @@ export const LanguageChanger = () => {
     >
       {SELECT_LANGUAGES_LIST.map(({ title, value }) => (
         <MenuItem key={title} value={value}>
-          {t(title)}
+          {title}
         </MenuItem>
       ))}
     </StyledSelect>
