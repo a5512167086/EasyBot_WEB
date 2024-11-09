@@ -18,7 +18,8 @@ import { PAGE_PATHS } from '@/routes'
 import { useTranslation } from 'react-i18next'
 import { useLoginUserMutation } from '@/store/apis/userApi'
 import { useAppDispatch } from '@/utils/hook'
-import { setUserError } from '@/store/modules/userSlice'
+import { clearUserError, setUserError } from '@/store/modules/userSlice'
+import { validateEmail } from '@/utils/helpter'
 
 const signInContent = {
   title: 'signPage.signIn',
@@ -37,30 +38,25 @@ export const SignInPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [remember, setRemember] = useState(false)
-  const [emailError, setEmailError] = useState('')
+  const [emailError, setEmailError] = useState(false)
   const [loginUser] = useLoginUserMutation()
-
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    return emailRegex.test(email)
-  }
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEmail = e.target.value
     setEmail(newEmail)
 
     if (emailError && validateEmail(newEmail)) {
-      setEmailError('')
+      setEmailError(false)
     }
   }
 
   const handleSignIn = async () => {
     if (!validateEmail(email)) {
-      setEmailError('Invalid email format')
+      setEmailError(true)
       return
     }
-    setEmailError('')
-
+    setEmailError(false)
+    dispatch(clearUserError())
     await loginUser({ email, password })
       .unwrap()
       .then((payload) => {
@@ -105,8 +101,8 @@ export const SignInPage = () => {
             autoComplete="email"
             value={email}
             onChange={handleEmailChange}
-            error={!!emailError}
-            helperText={emailError}
+            error={emailError}
+            helperText={emailError && t('error.email_format')}
           />
           <TextField
             variant="outlined"
