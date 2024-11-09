@@ -17,15 +17,10 @@ export const StyledForgotPasswordPage = styled(Container)(({ theme }) => ({
     textAlign: 'center'
   },
   '& .forgot__formBox': {
-    marginTop: '10px'
-  },
-  '& .sigin__forgotButton': {
-    margin: '20px 0'
+    marginTop: '10px',
+    width: '100%'
   },
   '& .forgot__forgotButton': {
-    textAlign: 'right',
-    [theme.breakpoints.down('sm')]: {
-      textAlign: 'left'
-    }
+    margin: '20px 0'
   }
 }))

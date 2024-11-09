@@ -13,7 +13,7 @@ import { CustomLink } from '@/components/CustomLink'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
-import { validateEmail } from '@/utils/helpter'
+import { validateEmail } from '@/utils/helper'
 import { useRegisterUserMutation } from '@/store/apis/userApi'
 import { useAppDispatch, useAppSelector } from '@/utils/hook'
 import { clearUserError, setUserError } from '@/store/modules/userSlice'
@@ -27,7 +27,9 @@ const signUpContent = {
   fullName: 'signPage.fullName',
   email: 'signPage.email',
   password: 'signPage.password',
-  confirmPassword: 'signPage.confirmPassword'
+  confirmPassword: 'signPage.confirmPassword',
+  emailFormatError: 'error.email_format',
+  passwordMismatch: 'error.password_mismatch'
 }
 
 export const SignUpPage = () => {
@@ -136,7 +138,7 @@ export const SignUpPage = () => {
             value={email}
             onChange={handleEmailChange}
             error={emailError}
-            helperText={emailError && t('error.email_format')}
+            helperText={emailError && t(signUpContent.emailFormatError)}
           />
           <TextField
             variant="outlined"
@@ -163,7 +165,7 @@ export const SignUpPage = () => {
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
             error={passwordError}
-            helperText={passwordError && t('error.password_mismatch')}
+            helperText={passwordError && t(signUpContent.passwordMismatch)}
           />
           {errorCode && (
             <Alert variant="outlined" severity="error">

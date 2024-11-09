@@ -22,16 +22,18 @@
     "forgotPasswordHint": "Enter your email address and we will send you a password reset letter.",
     "forgotPassword": "Forgot password?",
     "sendPasswordResetEmail": "Send Reset Password Email",
+    "sendEmailSuccess": "Password reset email sent",
     "notHaveAccount": "Don't have an account? Sign Up",
     "haveAccount": "Already have an account? Sign In",
     "rememberMe": "Remember Me",
     "email": "Email",
     "password": "Password",
     "fullName": "Full Name",
-    "confirmPassword": "Confirm Password"
+    "confirmPassword": "Confirm Password",
+    "backToLogin": "Back to Login Page"
   },
   "botPage": {
-    "addBot": "Add New Not",
+    "addBot": "Add New Bot",
     "myBot": "My Bots",
     "myModule": "My Modules",
     "botName": "Bot Name",
@@ -49,15 +51,23 @@
     "enable": "Enable",
     "cancel": "Cancel",
     "done": "Done",
-    "setting": "Setting",
     "or": "OR",
+    "setting": "Settings",
     "feature": {
-      "faqTitle": "FAQ Moudle",
-      "faqDescription": "The FAQ module incorporates AI's RAG (Retrieval Augmented Generation) system, which is able to retrieve relevant answers from the database in real-time and provide accurate and natural responses through generative techniques. Whether it's a frequently asked question or specialized knowledge, this module handles it with ease and ensures that users receive satisfactory answers.”",
-      "ecommTitle": "Ecomm Module",
+      "faqTitle": "FAQ Module",
+      "faqDescription": "The FAQ module incorporates AI's RAG (Retrieval Augmented Generation) system, which is able to retrieve relevant answers from the database in real-time and provide accurate and natural responses through generative techniques. Whether it's a frequently asked question or specialized knowledge, this module handles it with ease and ensures that users receive satisfactory answers.",
+      "ecommTitle": "E-commerce Module",
       "ecommDescription": "The e-commerce module helps you track customer behavior, predict sales trends, and automatically generate customer feedback reports through AI data analytics, while merchants can effectively manage inventory, increase conversion rates, and provide a personalized shopping experience.",
       "reservationTitle": "Reservation Module",
       "reservationDescription": "The Reservation Module makes it easy to manage all kinds of bookings and arrangements. From the customer's point of view, the booking process is simple and fast, and the support of notification function ensures that you will not miss any important appointments."
     }
+  },
+  "error": {
+    "email_format": "Incorrect email format, please enter a valid email address.",
+    "password_mismatch": "Passwords do not match, please enter the same password.",
+    "user_already_exists": "User already exists, please register with a different email.",
+    "user_not_found": "User not found, please sign up.",
+    "password_not_match": "Incorrect password, please try again.",
+    "unknown_error": "An unexpected error occurred, please check your operation and try again."
   }
 }

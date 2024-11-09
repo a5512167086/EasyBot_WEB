@@ -28,7 +28,6 @@ export const userSlice = createSlice({
       state.errorMessage = ''
     }
   },
-  extraReducers: () => {}
 })
 
 export const { setUserError, clearUserError } = userSlice.actions

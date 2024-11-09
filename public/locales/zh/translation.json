@@ -22,13 +22,15 @@
     "forgotPasswordHint": "輸入你的電子郵件後我們會寄一封密碼重設信件到您的信箱",
     "forgotPassword": "忘記密碼",
     "sendPasswordResetEmail": "送出重設密碼信件",
+    "sendEmailSuccess": "重設密碼信件已寄出",
     "notHaveAccount": "還沒有帳號嗎? 前往註冊",
     "haveAccount": "已經有帳號了嗎? 前往登入",
     "rememberMe": "記住我",
     "email": "電子信箱",
     "password": "密碼",
     "fullName": "名字",
-    "confirmPassword": "確認密碼"
+    "confirmPassword": "確認密碼",
+    "backToLogin": "返回登入頁面"
   },
   "botPage": {
     "addBot": "新增機器人",

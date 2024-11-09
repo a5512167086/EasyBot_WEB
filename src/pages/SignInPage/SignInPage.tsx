@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next'
 import { useLoginUserMutation } from '@/store/apis/userApi'
 import { useAppDispatch } from '@/utils/hook'
 import { clearUserError, setUserError } from '@/store/modules/userSlice'
-import { validateEmail } from '@/utils/helpter'
+import { validateEmail } from '@/utils/helper'
 
 const signInContent = {
   title: 'signPage.signIn',
@@ -29,7 +29,8 @@ const signInContent = {
   notHaveAccount: 'signPage.notHaveAccount',
   email: 'signPage.email',
   password: 'signPage.password',
-  rememberMe: 'signPage.rememberMe'
+  rememberMe: 'signPage.rememberMe',
+  emailFormatError: 'error.email_format'
 }
 
 export const SignInPage = () => {
@@ -102,7 +103,7 @@ export const SignInPage = () => {
             value={email}
             onChange={handleEmailChange}
             error={emailError}
-            helperText={emailError && t('error.email_format')}
+            helperText={emailError && t(signInContent.emailFormatError)}
           />
           <TextField
             variant="outlined"
