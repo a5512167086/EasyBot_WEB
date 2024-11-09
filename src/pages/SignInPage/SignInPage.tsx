@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Avatar,
   Button,
@@ -14,8 +15,10 @@ import { CustomDivider } from '@/components/CustomDivider'
 import { OAuth } from '@/components/OAuth'
 import { CustomLink } from '@/components/CustomLink'
 import { PAGE_PATHS } from '@/routes'
-import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
+import { useLoginUserMutation } from '@/store/apis/userApi'
+import { useAppDispatch } from '@/utils/hook'
+import { setUserError } from '@/store/modules/userSlice'
 
 const signInContent = {
   title: 'signPage.signIn',
@@ -29,11 +32,47 @@ const signInContent = {
 }
 
 export const SignInPage = () => {
+  const dispatch = useAppDispatch()
   const { t } = useTranslation()
-  const navigate = useNavigate()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [remember, setRemember] = useState(false)
+  const [emailError, setEmailError] = useState('')
+  const [loginUser] = useLoginUserMutation()
 
-  const handleSignIn = () => {
-    navigate(PAGE_PATHS.BOT_LIST)
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    return emailRegex.test(email)
+  }
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newEmail = e.target.value
+    setEmail(newEmail)
+
+    if (emailError && validateEmail(newEmail)) {
+      setEmailError('')
+    }
+  }
+
+  const handleSignIn = async () => {
+    if (!validateEmail(email)) {
+      setEmailError('Invalid email format')
+      return
+    }
+    setEmailError('')
+
+    await loginUser({ email, password })
+      .unwrap()
+      .then((payload) => {
+        if (remember) {
+          localStorage.setItem('token', payload.token)
+        } else {
+          sessionStorage.setItem('token', payload.token)
+        }
+      })
+      .catch((error) => {
+        dispatch(setUserError(error.data))
+      })
   }
 
   return (
@@ -64,6 +103,10 @@ export const SignInPage = () => {
             label={t(signInContent.email)}
             name="email"
             autoComplete="email"
+            value={email}
+            onChange={handleEmailChange}
+            error={!!emailError}
+            helperText={emailError}
           />
           <TextField
             variant="outlined"
@@ -75,9 +118,17 @@ export const SignInPage = () => {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
+            control={
+              <Checkbox
+                checked={remember}
+                onChange={(e) => setRemember(e.target.checked)}
+                color="primary"
+              />
+            }
             label={t(signInContent.rememberMe)}
           />
           <Button
