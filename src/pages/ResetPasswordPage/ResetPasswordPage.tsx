@@ -92,8 +92,8 @@ export const ResetPasswordPage = () => {
           )
         }
       })
-      .catch((error) => {
-        console.log(error)
+      .catch(() => {
+        navigate(PAGE_PATHS.BASE)
       })
     setIsLoading(false)
   }

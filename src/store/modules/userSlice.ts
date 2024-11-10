@@ -1,18 +1,21 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { CustomError } from '@/configs/type'
+import { userApi } from '../apis/userApi'
 
 interface UserState {
   username: string
   email: string
   errorCode: string
   errorMessage: string
+  status: 'idle' | 'loading' | 'succeeded' | 'failed'
 }
 
 const initialState: UserState = {
   username: '',
   email: '',
   errorCode: '',
-  errorMessage: ''
+  errorMessage: '',
+  status: 'idle'
 }
 
 export const userSlice = createSlice({
@@ -22,12 +25,36 @@ export const userSlice = createSlice({
     setUserError: (state, action: PayloadAction<CustomError>) => {
       state.errorCode = action.payload.error_code
       state.errorMessage = action.payload.error_message
+      state.status = 'failed'
     },
     clearUserError: (state) => {
       state.errorCode = ''
       state.errorMessage = ''
+      state.status = 'idle'
     }
   },
+  extraReducers: (builder) => {
+    builder
+      .addMatcher(userApi.endpoints.getUserMeLazy.matchPending, (state) => {
+        state.status = 'loading'
+      })
+      .addMatcher(
+        userApi.endpoints.getUserMeLazy.matchFulfilled,
+        (state, action) => {
+          state.status = 'succeeded'
+          state.username = action.payload.username
+          state.email = action.payload.email
+        }
+      )
+      .addMatcher(
+        userApi.endpoints.getUserMeLazy.matchRejected,
+        (state, action) => {
+          state.status = 'failed'
+          state.errorCode = action.error.code!
+          state.errorMessage = action.error.message!
+        }
+      )
+  }
 })
 
 export const { setUserError, clearUserError } = userSlice.actions

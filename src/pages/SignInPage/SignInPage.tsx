@@ -16,10 +16,14 @@ import { OAuth } from '@/components/OAuth'
 import { CustomLink } from '@/components/CustomLink'
 import { PAGE_PATHS } from '@/routes'
 import { useTranslation } from 'react-i18next'
-import { useLoginUserMutation } from '@/store/apis/userApi'
+import {
+  useLazyGetUserMeLazyQuery,
+  useLoginUserMutation
+} from '@/store/apis/userApi'
 import { useAppDispatch } from '@/utils/hook'
 import { clearUserError, setUserError } from '@/store/modules/userSlice'
 import { validateEmail } from '@/utils/helper'
+import { useNavigate } from 'react-router-dom'
 
 const signInContent = {
   title: 'signPage.signIn',
@@ -35,12 +39,14 @@ const signInContent = {
 
 export const SignInPage = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const { t } = useTranslation()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [remember, setRemember] = useState(false)
   const [emailError, setEmailError] = useState(false)
   const [loginUser] = useLoginUserMutation()
+  const [getUser] = useLazyGetUserMeLazyQuery()
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEmail = e.target.value
@@ -66,8 +72,12 @@ export const SignInPage = () => {
         } else {
           sessionStorage.setItem('token', payload.token)
         }
+        getUser().then(() => {
+          navigate(PAGE_PATHS.BOT_LIST)
+        })
       })
       .catch((error) => {
+        console.log(error)
         dispatch(setUserError(error.data))
       })
   }

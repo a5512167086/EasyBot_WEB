@@ -33,14 +33,11 @@ export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BACKEND_URL,
-    prepareHeaders: (headers, { endpoint }) => {
+    prepareHeaders: (headers) => {
       if (!headers.has('Authorization')) {
         const token =
           localStorage.getItem('token') || sessionStorage.getItem('token')
-        if (
-          token &&
-          (endpoint === 'getUserMe' || endpoint === 'resetPassword')
-        ) {
+        if (token) {
           headers.set('Authorization', `Bearer ${token}`)
         }
       }
@@ -75,7 +72,7 @@ export const userApi = createApi({
         body: email
       })
     }),
-    getUserMe: builder.query<UserMeResponse, void>({
+    getUserMeLazy: builder.query<UserMeResponse, void>({
       query: () => 'user/me'
     }),
     resetPassword: builder.mutation<void, ResetPasswordRequest>({
@@ -94,6 +91,6 @@ export const {
   useOauthLoginUserMutation,
   useRegisterUserMutation,
   useForgotPasswordMutation,
-  useGetUserMeQuery,
+  useLazyGetUserMeLazyQuery,
   useResetPasswordMutation
 } = userApi
