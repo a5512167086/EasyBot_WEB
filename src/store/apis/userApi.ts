@@ -34,10 +34,15 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BACKEND_URL,
     prepareHeaders: (headers, { endpoint }) => {
-      const token =
-        localStorage.getItem('token') || sessionStorage.getItem('token')
-      if (token && (endpoint === 'getUserMe' || endpoint === 'resetPassword')) {
-        headers.set('Authorization', `Bearer ${token}`)
+      if (!headers.has('Authorization')) {
+        const token =
+          localStorage.getItem('token') || sessionStorage.getItem('token')
+        if (
+          token &&
+          (endpoint === 'getUserMe' || endpoint === 'resetPassword')
+        ) {
+          headers.set('Authorization', `Bearer ${token}`)
+        }
       }
       return headers
     }

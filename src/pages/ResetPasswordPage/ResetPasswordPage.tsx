@@ -43,6 +43,8 @@ export const ResetPasswordPage = () => {
       return
     }
     if (isTokenValid(token)) {
+      localStorage.removeItem('token')
+      sessionStorage.removeItem('token')
       setIsInitLoading(false)
     } else {
       navigate(PAGE_PATHS.BASE)
