@@ -26,7 +26,7 @@ export type ForgotPasswordRequest = {
 
 export type ResetPasswordRequest = {
   token: string
-  newPassword: string
+  new_password: string
 }
 
 export const userApi = createApi({
@@ -77,7 +77,8 @@ export const userApi = createApi({
       query: (data) => ({
         url: 'user/reset_password',
         method: 'POST',
-        body: data
+        body: data,
+        headers: { Authorization: `Bearer ${data.token}` }
       })
     })
   })

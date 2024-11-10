@@ -38,12 +38,18 @@ const Homepage = lazy(() =>
 const BotPage = lazy(() =>
   import('@/pages/BotPage').then((module) => ({ default: module.BotPage }))
 )
+const ResetPasswordPage = lazy(() =>
+  import('@/pages/ResetPasswordPage').then((module) => ({
+    default: module.ResetPasswordPage
+  }))
+)
 
 export const PAGE_PATHS = {
   BASE: '/',
   SIGN_IN: '/sign-in',
   SIGN_UP: '/sign-up',
   FORGOT_PASSWORD: '/forgot-password',
+  RESET_PASSWORD: '/reset-password',
   OAUTH_CALLBACK: '/oauth-callback',
   BOT_LIST: '/bot-list',
   MODULE_LIST: '/module-list',
@@ -76,6 +82,10 @@ export const router = createBrowserRouter([
       {
         path: PAGE_PATHS.FORGOT_PASSWORD,
         element: <ForgotPasswordPage />
+      },
+      {
+        path: PAGE_PATHS.RESET_PASSWORD,
+        element: <ResetPasswordPage />
       },
       {
         path: PAGE_PATHS.OAUTH_CALLBACK,
