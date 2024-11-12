@@ -63,12 +63,12 @@ export const SignInPage = () => {
   }
 
   const handleSignIn = async () => {
+    dispatch(clearUserError())
     if (!validateEmail(email)) {
       setEmailError(true)
       return
     }
     setEmailError(false)
-    dispatch(clearUserError())
     setIsLoading(true)
     await loginUser({ email, password })
       .unwrap()

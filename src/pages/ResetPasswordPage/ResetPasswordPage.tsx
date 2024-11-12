@@ -9,6 +9,8 @@ import { isEmpty, isTokenValid } from '@/utils/helper'
 import { PAGE_PATHS } from '@/routes'
 import { useResetPasswordMutation } from '@/store/apis/userApi'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
+import { useAppDispatch } from '@/utils/hook'
+import { clearUserError } from '@/store/modules/userSlice'
 
 const resetPasswordContent = {
   title: 'signPage.resetPassword',
@@ -25,6 +27,7 @@ const resetPasswordContent = {
 
 export const ResetPasswordPage = () => {
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const { t } = useTranslation()
   const [resetPassword] = useResetPasswordMutation()
   const [searchParams] = useSearchParams()
@@ -72,6 +75,7 @@ export const ResetPasswordPage = () => {
   }
 
   const handleResetPassword = async () => {
+    dispatch(clearUserError())
     if (password !== confirmPassword) {
       setPasswordError(true)
       return

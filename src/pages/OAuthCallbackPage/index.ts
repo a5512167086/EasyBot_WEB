@@ -1,1 +1,1 @@
-export * from './OAuthCallback'
+export * from './OAuthCallbackPage'

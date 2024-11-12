@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { CustomError } from '@/configs/type'
 import { userApi } from '../apis/userApi'
+import { clearUserToken } from '@/utils/helper'
 
 interface UserState {
   username: string
@@ -49,6 +50,7 @@ export const userSlice = createSlice({
       .addMatcher(
         userApi.endpoints.getUserMeLazy.matchRejected,
         (state, action) => {
+          clearUserToken()
           state.status = 'failed'
           state.errorCode = action.error.code!
           state.errorMessage = action.error.message!

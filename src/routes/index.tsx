@@ -18,8 +18,8 @@ const ForgotPasswordPage = lazy(() =>
   }))
 )
 const OAuthCallback = lazy(() =>
-  import('@/pages/OAuthCallbackPage/OAuthCallback').then((module) => ({
-    default: module.OAuthCallback
+  import('@/pages/OAuthCallbackPage/OAuthCallbackPage').then((module) => ({
+    default: module.OAuthCallbackPage
   }))
 )
 const ModulePage = lazy(() =>

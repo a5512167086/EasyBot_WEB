@@ -31,9 +31,9 @@ const forgotPasswordContent = {
 }
 
 export const ForgotPasswordPage = () => {
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { t } = useTranslation()
-  const navigate = useNavigate()
   const { errorCode } = useAppSelector((state) => state.user)
   const [forgotPassword] = useForgotPasswordMutation()
   const [isLoading, setIsLoading] = useState(false)
@@ -51,12 +51,12 @@ export const ForgotPasswordPage = () => {
   }
 
   const handleForgotPassword = async () => {
+    dispatch(clearUserError())
     if (!validateEmail(email)) {
       setEmailError(true)
       return
     }
 
-    dispatch(clearUserError())
     setIsLoading(true)
     await forgotPassword({ email })
       .unwrap()

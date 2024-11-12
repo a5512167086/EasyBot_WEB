@@ -67,6 +67,8 @@
     }
   },
   "error": {
+    "oauth_failed_title": "OAuth 授權失敗",
+    "oauth_failed_description": "很抱歉，在處理您的OAuth請求時發生了錯誤，將在五秒後前往登入頁面，如未前往可以手動點擊下方按鈕繼續",
     "email_format": "電子信箱格式錯誤，請輸入正確的電子信箱格式",
     "password_mismatch": "確認密碼與密碼不同，請輸入相同的密碼",
     "user_already_exists": "使用者已存在，請使用別的電子信箱註冊",

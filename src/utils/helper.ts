@@ -23,3 +23,12 @@ export const isTokenValid = (token: string) => {
   }
   return decodedToken.exp > currentTime
 }
+
+export const clearUserToken = () => {
+  if (localStorage.getItem('token')) {
+    localStorage.removeItem('token')
+  }
+  if (sessionStorage.getItem('token')) {
+    sessionStorage.removeItem('token')
+  }
+}
