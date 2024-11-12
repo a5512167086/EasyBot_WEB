@@ -1,5 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+export enum OAuthProvider {
+  Google = 'google',
+  Line = 'line'
+}
+
 export type UserMeResponse = {
   username: string
   email: string
@@ -29,6 +34,11 @@ export type ResetPasswordRequest = {
   new_password: string
 }
 
+export type OAuthLoginRequest = {
+  code: string
+  provider: OAuthProvider
+}
+
 export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({
@@ -52,10 +62,11 @@ export const userApi = createApi({
         body: credentials
       })
     }),
-    oauthLoginUser: builder.mutation<LoginResponse, void>({
-      query: () => ({
+    oauthLoginUser: builder.mutation<LoginResponse, OAuthLoginRequest>({
+      query: (oauthUser) => ({
         url: 'user/oauth_login',
-        method: 'POST'
+        method: 'POST',
+        body: oauthUser
       })
     }),
     registerUser: builder.mutation<void, RegisterRequest>({
