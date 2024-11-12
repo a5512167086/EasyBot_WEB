@@ -2,7 +2,8 @@
   "header": {
     "home": "首頁",
     "signIn": "登入",
-    "signUp": "註冊"
+    "signUp": "註冊",
+    "signOut": "登出"
   },
   "homePage": {
     "hero": {

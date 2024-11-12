@@ -32,6 +32,13 @@ export const userSlice = createSlice({
       state.errorCode = ''
       state.errorMessage = ''
       state.status = 'idle'
+    },
+    initUser: (state) => {
+      state.username = ''
+      state.email = ''
+      state.errorCode = ''
+      state.errorMessage = ''
+      state.status = 'idle'
     }
   },
   extraReducers: (builder) => {
@@ -59,6 +66,6 @@ export const userSlice = createSlice({
   }
 })
 
-export const { setUserError, clearUserError } = userSlice.actions
+export const { setUserError, clearUserError, initUser } = userSlice.actions
 
 export default userSlice.reducer

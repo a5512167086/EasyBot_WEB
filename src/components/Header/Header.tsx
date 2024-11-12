@@ -15,12 +15,15 @@ import { PUBLIC_NAVIGATION_ROUTE } from '@/routes'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
 import { LanguageChanger } from '../LanguageChanger'
+import { useUser } from '@/hooks/useUser'
+
+const headerContent = { logout: 'header.signOut' }
 
 export const Header = () => {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
-
+  const { isAuthenticated, logout } = useUser()
   const handleDrawerToggle = () => {
     setIsDrawerOpen((prevState) => !prevState)
   }
@@ -47,17 +50,23 @@ export const Header = () => {
             EasyBot
           </Typography>
           <Box className="header__navBox">
-            {PUBLIC_NAVIGATION_ROUTE.map((item) => (
-              <Button
-                key={t(item.text)}
-                className="header__navLink"
-                onClick={() => {
-                  handleNavigation(item.link)
-                }}
-              >
-                {t(item.text)}
+            {!isAuthenticated ? (
+              PUBLIC_NAVIGATION_ROUTE.map((item) => (
+                <Button
+                  key={t(item.text)}
+                  className="header__navLink"
+                  onClick={() => {
+                    handleNavigation(item.link)
+                  }}
+                >
+                  {t(item.text)}
+                </Button>
+              ))
+            ) : (
+              <Button className="header__navLink" onClick={logout}>
+                {t(headerContent.logout)}
               </Button>
-            ))}
+            )}
             <LanguageChanger />
           </Box>
         </Toolbar>

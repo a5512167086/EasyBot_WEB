@@ -1,6 +1,7 @@
 import { lazy } from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 import { BaseWrapper } from '@/components/BaseWrapper'
+import PrivateRoute from '@/components/PrivateRoute/PrivateRoute'
 
 const SignInPage = lazy(() =>
   import('@/pages/SignInPage').then((module) => ({
@@ -92,12 +93,17 @@ export const router = createBrowserRouter([
         element: <OAuthCallback />
       },
       {
-        path: PAGE_PATHS.BOT_LIST,
-        element: <BotPage />
-      },
-      {
-        path: PAGE_PATHS.MODULE_LIST,
-        element: <ModulePage />
+        element: <PrivateRoute />,
+        children: [
+          {
+            path: PAGE_PATHS.BOT_LIST,
+            element: <BotPage />
+          },
+          {
+            path: PAGE_PATHS.MODULE_LIST,
+            element: <ModulePage />
+          }
+        ]
       },
       {
         path: PAGE_PATHS.NOT_FOUND,
