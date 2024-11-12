@@ -7,7 +7,8 @@ import {
   Checkbox,
   Grid2,
   Box,
-  Typography
+  Typography,
+  Alert
 } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import { StyledSignInPage } from './SignInPage.style'
@@ -20,10 +21,12 @@ import {
   useLazyGetUserMeLazyQuery,
   useLoginUserMutation
 } from '@/store/apis/userApi'
-import { useAppDispatch } from '@/utils/hook'
+import { useAppDispatch, useAppSelector } from '@/utils/hook'
 import { clearUserError, setUserError } from '@/store/modules/userSlice'
 import { validateEmail } from '@/utils/helper'
 import { useNavigate } from 'react-router-dom'
+import { ERROR_CODE_MESSAGE_MAPPING } from '@/configs/common'
+import { CustomLoader } from '@/components/CustomLoader'
 
 const signInContent = {
   title: 'signPage.signIn',
@@ -40,8 +43,10 @@ const signInContent = {
 export const SignInPage = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
+  const { errorCode } = useAppSelector((state) => state.user)
   const { t } = useTranslation()
   const [email, setEmail] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const [password, setPassword] = useState('')
   const [remember, setRemember] = useState(false)
   const [emailError, setEmailError] = useState(false)
@@ -64,6 +69,7 @@ export const SignInPage = () => {
     }
     setEmailError(false)
     dispatch(clearUserError())
+    setIsLoading(true)
     await loginUser({ email, password })
       .unwrap()
       .then((payload) => {
@@ -77,9 +83,9 @@ export const SignInPage = () => {
         })
       })
       .catch((error) => {
-        console.log(error)
         dispatch(setUserError(error.data))
       })
+    setIsLoading(false)
   }
 
   return (
@@ -128,6 +134,15 @@ export const SignInPage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+          {errorCode && (
+            <Alert variant="outlined" severity="error">
+              {t(
+                ERROR_CODE_MESSAGE_MAPPING[
+                  errorCode as keyof typeof ERROR_CODE_MESSAGE_MAPPING
+                ]
+              )}
+            </Alert>
+          )}
           <FormControlLabel
             control={
               <Checkbox
@@ -142,9 +157,14 @@ export const SignInPage = () => {
             type="submit"
             fullWidth
             variant="contained"
+            disabled={isLoading || emailError}
             className="sigin__signinButton"
           >
-            {t(signInContent.signInButtonText)}
+            {isLoading ? (
+              <CustomLoader size={25} />
+            ) : (
+              t(signInContent.signInButtonText)
+            )}
           </Button>
           <Grid2 container>
             <Grid2 size={{ xs: 12, sm: 4 }}>

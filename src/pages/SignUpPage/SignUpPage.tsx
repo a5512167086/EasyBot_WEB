@@ -83,7 +83,7 @@ export const SignUpPage = () => {
 
     setEmailError(false)
     setPasswordError(false)
-    setIsLoading(true) // Start loading
+    setIsLoading(true)
     await registerUser({ email, username: name, password })
       .unwrap()
       .then(() => {
@@ -93,7 +93,7 @@ export const SignUpPage = () => {
         dispatch(setUserError(error.data))
       })
       .finally(() => {
-        setIsLoading(false) // Stop loading
+        setIsLoading(false)
       })
   }
 

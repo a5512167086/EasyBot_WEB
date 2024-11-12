@@ -6,10 +6,12 @@ import { Outlet } from 'react-router-dom'
 import { Suspense } from 'react'
 import { CustomLoader } from '../CustomLoader'
 import { useTranslation } from 'react-i18next'
+import { useClearError } from '@/hooks/useClearError'
 
 const loaderText = 'common.loading'
 
 export const BaseWrapper = () => {
+  useClearError()
   const { t } = useTranslation()
   return (
     <StyledBaseWrapper>
