@@ -28,9 +28,8 @@ export const BaseWrapper = () => {
       navigate(PAGE_PATHS.BOT_LIST)
     } else if (isAuthFailed) {
       setAlertOpen(true)
-      navigate(PAGE_PATHS.BASE)
     }
-  }, [isAuthenticated])
+  }, [isAuthenticated, isAuthFailed])
 
   return (
     <StyledBaseWrapper>
