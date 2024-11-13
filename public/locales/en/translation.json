@@ -74,6 +74,7 @@
     "user_already_exists": "User already exists, please register with a different email.",
     "user_not_found": "User not found, please sign up.",
     "password_not_match": "Incorrect password, please try again.",
-    "unknown_error": "An unexpected error occurred, please check your action and try again."
+    "unknown_error": "An unexpected error occurred, please check your action and try again.",
+    "token_expired": "Session expired, please log in again"
   }
 }

@@ -13,15 +13,20 @@ export const isEmpty = (val: unknown) =>
   (typeof val === 'string' && val.trim().length === 0)
 
 export const isTokenValid = (token: string) => {
-  const decodedToken = jwtDecode(token)
-  if (isEmpty(decodedToken)) {
+  try {
+    const decodedToken = jwtDecode(token)
+    if (isEmpty(decodedToken)) {
+      return false
+    }
+    const currentTime = Math.floor(Date.now() / 1000)
+    if (!decodedToken.exp) {
+      return false
+    }
+    return decodedToken.exp > currentTime
+  } catch {
+    clearUserToken()
     return false
   }
-  const currentTime = Math.floor(Date.now() / 1000)
-  if (!decodedToken.exp) {
-    return false
-  }
-  return decodedToken.exp > currentTime
 }
 
 export const clearUserToken = () => {

@@ -35,7 +35,6 @@ export const OAuthCallbackPage = () => {
     const urlParams = new URLSearchParams(window.location.search)
     const code = urlParams.get('code')
     const error = urlParams.get('error')
-    console.log(code, error, isRequest)
     if (error || !code) {
       setError(true)
       setTimeout(() => {
