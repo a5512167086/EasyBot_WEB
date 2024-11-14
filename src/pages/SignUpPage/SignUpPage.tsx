@@ -16,7 +16,7 @@ import { useState } from 'react'
 import { validateEmail } from '@/utils/helper'
 import { useRegisterUserMutation } from '@/store/apis/userApi'
 import { useAppDispatch, useAppSelector } from '@/utils/hook'
-import { clearUserError, setUserError } from '@/store/modules/userSlice'
+import { clearUserError } from '@/store/modules/userSlice'
 import { ERROR_CODE_MESSAGE_MAPPING } from '@/configs/common'
 import { CustomLoader } from '@/components/CustomLoader'
 
@@ -88,9 +88,6 @@ export const SignUpPage = () => {
       .unwrap()
       .then(() => {
         navigate(PAGE_PATHS.SIGN_IN)
-      })
-      .catch((error) => {
-        dispatch(setUserError(error.data))
       })
       .finally(() => {
         setIsLoading(false)

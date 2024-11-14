@@ -15,7 +15,7 @@ import { useState } from 'react'
 import { CustomLoader } from '@/components/CustomLoader'
 import { useAppDispatch, useAppSelector } from '@/utils/hook'
 import { useForgotPasswordMutation } from '@/store/apis/userApi'
-import { clearUserError, setUserError } from '@/store/modules/userSlice'
+import { clearUserError } from '@/store/modules/userSlice'
 import { ERROR_CODE_MESSAGE_MAPPING } from '@/configs/common'
 import { useNavigate } from 'react-router-dom'
 import { PAGE_PATHS } from '@/routes'
@@ -63,10 +63,9 @@ export const ForgotPasswordPage = () => {
       .then(() => {
         setIsSuccess(true)
       })
-      .catch((error) => {
-        dispatch(setUserError(error.data))
+      .finally(() => {
+        setIsLoading(false)
       })
-    setIsLoading(false)
   }
 
   const handleNavigateToLogin = () => {

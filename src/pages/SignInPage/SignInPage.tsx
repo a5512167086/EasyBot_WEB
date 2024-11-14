@@ -22,7 +22,7 @@ import {
   useLoginUserMutation
 } from '@/store/apis/userApi'
 import { useAppDispatch, useAppSelector } from '@/utils/hook'
-import { clearUserError, setUserError } from '@/store/modules/userSlice'
+import { clearUserError } from '@/store/modules/userSlice'
 import { validateEmail } from '@/utils/helper'
 import { useNavigate } from 'react-router-dom'
 import { ERROR_CODE_MESSAGE_MAPPING } from '@/configs/common'
@@ -82,10 +82,9 @@ export const SignInPage = () => {
           navigate(PAGE_PATHS.BOT_LIST)
         })
       })
-      .catch((error) => {
-        dispatch(setUserError(error.data))
+      .finally(() => {
+        setIsLoading(false)
       })
-    setIsLoading(false)
   }
 
   return (

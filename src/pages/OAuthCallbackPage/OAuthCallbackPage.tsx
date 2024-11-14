@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { CustomLoader } from '@/components/CustomLoader'
 import { useTranslation } from 'react-i18next'
@@ -11,21 +11,24 @@ import {
   useLazyGetUserMeLazyQuery,
   useOauthLoginUserMutation
 } from '@/store/apis/userApi'
+import { useAppSelector } from '@/utils/hook'
+import { ERROR_CODE_MESSAGE_MAPPING } from '@/configs/common'
 
 const oauthCallbackContent = {
   loading: 'common.loading',
   backToLogin: 'signPage.backToLogin',
   failedTitle: 'error.oauth_failed_title',
-  failedDescription: 'error.oauth_failed_description'
+  backToLoginHint: 'common.backToLoginHint',
+  oauthExistHint: 'error.oauth_exist_hint'
 }
 
 export const OAuthCallbackPage = () => {
   let isRequest = false
   const navigate = useNavigate()
+  const { errorCode } = useAppSelector((state) => state.user)
   const { t } = useTranslation()
   const [oauthLogin] = useOauthLoginUserMutation()
   const [getUser] = useLazyGetUserMeLazyQuery()
-  const [error, setError] = useState(false)
 
   const handleNavigateToLogin = () => {
     navigate(PAGE_PATHS.SIGN_IN)
@@ -36,7 +39,6 @@ export const OAuthCallbackPage = () => {
     const code = urlParams.get('code')
     const error = urlParams.get('error')
     if (error || !code) {
-      setError(true)
       setTimeout(() => {
         navigate(PAGE_PATHS.SIGN_IN)
       }, 5000)
@@ -53,7 +55,6 @@ export const OAuthCallbackPage = () => {
         })
       })
       .catch(() => {
-        setError(true)
         setTimeout(() => {
           navigate(PAGE_PATHS.SIGN_IN)
         }, 5000)
@@ -69,7 +70,7 @@ export const OAuthCallbackPage = () => {
 
   return (
     <StyledOAuthCallbackPage minWidth="xs" maxWidth="sm">
-      {!error ? (
+      {!errorCode ? (
         <CustomLoader size="6rem" text={t(oauthCallbackContent.loading)} />
       ) : (
         <Paper elevation={3} className="oauth__paper">
@@ -78,7 +79,18 @@ export const OAuthCallbackPage = () => {
             {t(oauthCallbackContent.failedTitle)}
           </Typography>
           <Typography variant="body1" align="center" className="oauth__text">
-            {t(oauthCallbackContent.failedDescription)}
+            {t(
+              ERROR_CODE_MESSAGE_MAPPING[
+                errorCode as keyof typeof ERROR_CODE_MESSAGE_MAPPING
+              ]
+            )}
+            {errorCode === 'USER_ALREADY_EXISTS' && (
+              <>
+                <br /> {t(oauthCallbackContent.oauthExistHint)}
+              </>
+            )}
+            <br />
+            {t(oauthCallbackContent.backToLoginHint)}
           </Typography>
           <Button
             fullWidth

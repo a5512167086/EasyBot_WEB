@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import { CustomError } from '@/configs/type'
 import { userApi } from '../apis/userApi'
 import { clearUserToken } from '@/utils/helper'
@@ -23,11 +23,6 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUserError: (state, action: PayloadAction<CustomError>) => {
-      state.errorCode = action.payload.error_code
-      state.errorMessage = action.payload.error_message
-      state.status = 'failed'
-    },
     clearUserError: (state) => {
       state.errorCode = ''
       state.errorMessage = ''
@@ -59,13 +54,50 @@ export const userSlice = createSlice({
         (state, action) => {
           clearUserToken()
           state.status = 'failed'
-          state.errorCode = action.error.code!
-          state.errorMessage = action.error.message!
+          const error = action.payload!.data as CustomError
+          state.errorCode = error!.error_code
+          state.errorMessage = error!.error_message
+        }
+      )
+      .addMatcher(
+        userApi.endpoints.forgotPassword.matchRejected,
+        (state, action) => {
+          state.status = 'failed'
+          const error = action.payload!.data as CustomError
+          state.errorCode = error!.error_code
+          state.errorMessage = error!.error_message
+        }
+      )
+      .addMatcher(
+        userApi.endpoints.registerUser.matchRejected,
+        (state, action) => {
+          state.status = 'failed'
+          const error = action.payload!.data as CustomError
+          state.errorCode = error!.error_code
+          state.errorMessage = error!.error_message
+        }
+      )
+      .addMatcher(
+        userApi.endpoints.loginUser.matchRejected,
+        (state, action) => {
+          state.status = 'failed'
+          const error = action.payload!.data as CustomError
+          state.errorCode = error!.error_code
+          state.errorMessage = error!.error_message
+        }
+      )
+      .addMatcher(
+        userApi.endpoints.oauthLoginUser.matchRejected,
+        (state, action) => {
+          state.status = 'failed'
+          const error = action.payload!.data as CustomError
+          state.errorCode = error!.error_code
+          state.errorMessage = error!.error_message
         }
       )
   }
 })
 
-export const { setUserError, clearUserError, initUser } = userSlice.actions
+export const { clearUserError, initUser } = userSlice.actions
 
 export default userSlice.reducer

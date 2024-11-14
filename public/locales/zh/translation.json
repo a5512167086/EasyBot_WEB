@@ -58,6 +58,7 @@
     "done": "完成",
     "or": "或者",
     "setting": "設定",
+    "backToLoginHint": "將在五秒後前往登入頁面，如未前往可以手動點擊下方按鈕繼續",
     "feature": {
       "faqTitle": "問答模組",
       "faqDescription": "問答模組結合了AI的RAG (檢索增強生成) 系統，能夠即時從資料庫中檢索出相關答案，並通過生成技術提供精確和自然的回應。無論是常見問題還是專業知識，這個模組都能輕鬆處理，確保用戶得到滿意的解答。",
@@ -69,10 +70,11 @@
   },
   "error": {
     "oauth_failed_title": "OAuth 授權失敗",
-    "oauth_failed_description": "很抱歉，在處理您的OAuth請求時發生了錯誤，將在五秒後前往登入頁面，如未前往可以手動點擊下方按鈕繼續",
+    "oauth_failed": "很抱歉，在處理您的OAuth請求時發生了錯誤",
+    "oauth_exist_hint": "請透過信箱登入綁定第三方平台",
     "email_format": "電子信箱格式錯誤，請輸入正確的電子信箱格式",
     "password_mismatch": "確認密碼與密碼不同，請輸入相同的密碼",
-    "user_already_exists": "使用者已存在，請使用別的電子信箱註冊",
+    "user_already_exists": "使用者已存在",
     "user_not_found": "該使用者不存在，請到註冊頁面註冊",
     "password_not_match": "密碼錯誤，請重新輸入",
     "unknown_error": "發生意外錯誤，請確認您的操作並重試。",
