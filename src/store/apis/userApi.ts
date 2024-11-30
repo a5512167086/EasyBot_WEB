@@ -42,7 +42,7 @@ export type OAuthLoginRequest = {
 export const userApi = createApi({
   reducerPath: 'userApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: import.meta.env.VITE_BACKEND_URL,
+    baseUrl: import.meta.env.VITE_USER_BACKEND_URL,
     prepareHeaders: (headers) => {
       if (!headers.has('Authorization')) {
         const token =
@@ -83,7 +83,7 @@ export const userApi = createApi({
         body: email
       })
     }),
-    getUserMeLazy: builder.query<UserMeResponse, void>({
+    getUserMe: builder.query<UserMeResponse, void>({
       query: () => 'user/me'
     }),
     resetPassword: builder.mutation<void, ResetPasswordRequest>({
@@ -102,6 +102,6 @@ export const {
   useOauthLoginUserMutation,
   useRegisterUserMutation,
   useForgotPasswordMutation,
-  useLazyGetUserMeLazyQuery,
+  useLazyGetUserMeQuery,
   useResetPasswordMutation
 } = userApi

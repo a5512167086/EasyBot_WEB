@@ -18,7 +18,7 @@ import { CustomLink } from '@/components/CustomLink'
 import { PAGE_PATHS } from '@/routes'
 import { useTranslation } from 'react-i18next'
 import {
-  useLazyGetUserMeLazyQuery,
+  useLazyGetUserMeQuery,
   useLoginUserMutation
 } from '@/store/apis/userApi'
 import { useAppDispatch, useAppSelector } from '@/utils/hook'
@@ -51,7 +51,7 @@ export const SignInPage = () => {
   const [remember, setRemember] = useState(false)
   const [emailError, setEmailError] = useState(false)
   const [loginUser] = useLoginUserMutation()
-  const [getUser] = useLazyGetUserMeLazyQuery()
+  const [getUser] = useLazyGetUserMeQuery()
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newEmail = e.target.value

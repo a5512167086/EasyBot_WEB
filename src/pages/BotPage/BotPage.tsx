@@ -11,14 +11,8 @@ import { CustomLink } from '@/components/CustomLink'
 import { PAGE_PATHS } from '@/routes'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-
-const mockBotData = [
-  'Adidax台北分店',
-  'Adidax新北分店',
-  'Adidax台中分店',
-  'Adidax高雄分店',
-  'Adidax南投分店'
-]
+import { useGetBotsQuery } from '@/store/apis/botApi'
+import { useAppSelector } from '@/utils/hook'
 
 const botPageContent = {
   title: 'botPage.myBot',
@@ -27,9 +21,11 @@ const botPageContent = {
 }
 
 export const BotPage = () => {
+  const { botList } = useAppSelector((state) => state.bot)
   const navigate = useNavigate()
   const { t } = useTranslation()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  useGetBotsQuery()
 
   const handleDialogOpen = () => {
     setIsDialogOpen(true)
@@ -68,18 +64,18 @@ export const BotPage = () => {
             actionType={ActionType.None}
           />
         </Grid2>
-        {mockBotData.map((bot) => (
+        {botList.map((bot) => (
           <Grid2
             size={{ xs: 12, sm: 6, md: 4 }}
             display="flex"
             justifyContent="center"
-            key={bot}
+            key={bot.class_id}
           >
             <CustomCard
               imgSrc={BotIcon}
               enableHeaderButton={true}
               cardButton={false}
-              titleText={bot}
+              titleText={bot.bot_name}
               actionType={ActionType.Button}
               buttonText={t(botPageContent.setting)}
               buttonIcon={<SettingsIcon />}

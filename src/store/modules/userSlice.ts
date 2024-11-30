@@ -38,11 +38,11 @@ export const userSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addMatcher(userApi.endpoints.getUserMeLazy.matchPending, (state) => {
+      .addMatcher(userApi.endpoints.getUserMe.matchPending, (state) => {
         state.status = 'loading'
       })
       .addMatcher(
-        userApi.endpoints.getUserMeLazy.matchFulfilled,
+        userApi.endpoints.getUserMe.matchFulfilled,
         (state, action) => {
           state.status = 'succeeded'
           state.username = action.payload.username
@@ -50,7 +50,7 @@ export const userSlice = createSlice({
         }
       )
       .addMatcher(
-        userApi.endpoints.getUserMeLazy.matchRejected,
+        userApi.endpoints.getUserMe.matchRejected,
         (state, action) => {
           clearUserToken()
           state.status = 'failed'

@@ -2,9 +2,10 @@ import { useAppDispatch, useAppSelector } from '@/utils/hook'
 import { initUser } from '@/store/modules/userSlice'
 import { clearUserToken } from '@/utils/helper'
 import { useEffect, useState } from 'react'
-import { useLazyGetUserMeLazyQuery } from '@/store/apis/userApi'
+import { useLazyGetUserMeQuery } from '@/store/apis/userApi'
 import { useNavigate } from 'react-router-dom'
 import { PAGE_PATHS } from '@/routes'
+import { initBot } from '@/store/modules/botSlice'
 
 type UseUser = {
   isAuthenticated: boolean
@@ -16,7 +17,7 @@ export const useUser = (): UseUser => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const { username, email } = useAppSelector((state) => state.user)
-  const [getUser] = useLazyGetUserMeLazyQuery()
+  const [getUser] = useLazyGetUserMeQuery()
   const [isAuthFailed, setIsAuthFailed] = useState(false)
 
   const token = localStorage.getItem('token') || sessionStorage.getItem('token')
@@ -26,6 +27,7 @@ export const useUser = (): UseUser => {
     if (isAuthenticated) {
       clearUserToken()
       dispatch(initUser())
+      dispatch(initBot())
       navigate(PAGE_PATHS.BASE)
     }
   }

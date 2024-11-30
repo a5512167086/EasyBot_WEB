@@ -8,7 +8,7 @@ import { StyledOAuthCallbackPage } from './OAuthCallbackPage.style'
 import ErrorIcon from '@mui/icons-material/Error'
 import {
   OAuthProvider,
-  useLazyGetUserMeLazyQuery,
+  useLazyGetUserMeQuery,
   useOauthLoginUserMutation
 } from '@/store/apis/userApi'
 import { useAppSelector } from '@/utils/hook'
@@ -28,7 +28,7 @@ export const OAuthCallbackPage = () => {
   const { errorCode } = useAppSelector((state) => state.user)
   const { t } = useTranslation()
   const [oauthLogin] = useOauthLoginUserMutation()
-  const [getUser] = useLazyGetUserMeLazyQuery()
+  const [getUser] = useLazyGetUserMeQuery()
 
   const handleNavigateToLogin = () => {
     navigate(PAGE_PATHS.SIGN_IN)
