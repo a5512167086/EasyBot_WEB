@@ -14,9 +14,41 @@ import { useTranslation } from 'react-i18next'
 import { useGetBotsQuery } from '@/store/apis/botApi'
 import { useAppSelector } from '@/utils/hook'
 
+const dialogFields = [
+  {
+    id: 'botName',
+    name: 'botName',
+    label: 'botPage.botName',
+    type: 'text',
+    required: true
+  },
+  {
+    id: 'channelId',
+    name: 'channelId',
+    label: 'botPage.channelId',
+    type: 'text',
+    required: true
+  },
+  {
+    id: 'channelSecret',
+    name: 'channelSecret',
+    label: 'botPage.channelSecret',
+    type: 'password',
+    required: true
+  },
+  {
+    id: 'channelAccessToken',
+    name: 'channelAccessToken',
+    label: 'botPage.channelAccessToken',
+    type: 'password',
+    required: true
+  }
+]
+
 const botPageContent = {
   title: 'botPage.myBot',
   addBot: 'botPage.addBot',
+  seeTutorial: 'botPage.seeTutorial',
   setting: 'common.setting'
 }
 
@@ -84,7 +116,17 @@ export const BotPage = () => {
           </Grid2>
         ))}
       </Grid2>
-      <CustomDialog isOpen={isDialogOpen} handleClose={handleDialogClose} />
+      <CustomDialog
+        isOpen={isDialogOpen}
+        handleClose={handleDialogClose}
+        fields={dialogFields}
+        title="botPage.addBot"
+        onSubmit={(data) => {
+          console.log(data)
+        }}
+        linkText={botPageContent.seeTutorial}
+        link={PAGE_PATHS.CREATE_BOT_TURTROIAL}
+      />
     </StyledBotPage>
   )
 }

@@ -53,6 +53,7 @@ export const PAGE_PATHS = {
   RESET_PASSWORD: '/reset-password',
   OAUTH_CALLBACK: '/oauth-callback',
   BOT_LIST: '/bot-list',
+  CREATE_BOT_TURTROIAL: '/bot-tutorial',
   MODULE_LIST: '/module-list',
   NOT_FOUND: '*'
 }
