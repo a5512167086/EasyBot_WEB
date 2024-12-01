@@ -45,7 +45,9 @@
     "channelId": "Channel ID",
     "channelSecret": "Channel Secret",
     "channelAccessToken": "Channel Access Token",
-    "seeTutorial": "查看教學"
+    "seeTutorial": "查看教學",
+    "webhookUrl": "Webhook網址",
+    "webhookHint": "Webhook網址只會在創建時顯示，請妥善保管。"
   },
   "notFoundPage": {
     "title": "查無此頁面",
@@ -54,6 +56,7 @@
   "common": {
     "loading": "載入中...",
     "enable": "啟用",
+    "close": "關閉",
     "cancel": "取消",
     "done": "完成",
     "or": "或者",

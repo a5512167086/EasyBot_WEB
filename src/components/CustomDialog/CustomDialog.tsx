@@ -16,24 +16,28 @@ const dialogContent = {
   done: 'common.done'
 }
 
-export const CustomDialog = ({
+export const CustomDialog = <T extends Record<string, unknown>>({
   isOpen,
   handleClose,
   fields,
   title,
-  onSubmit,
   linkText,
-  link
-}: CustomDialogProps) => {
+  link,
+  onSubmit
+}: CustomDialogProps<T>) => {
   const { t } = useTranslation()
   const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     setLoading(true)
+
     const formData = new FormData(event.currentTarget)
     const formJson = Object.fromEntries(formData.entries())
-    await onSubmit(formJson)
+
+    const validatedData = formJson as T
+    await onSubmit(validatedData)
+
     setLoading(false)
     handleClose()
   }

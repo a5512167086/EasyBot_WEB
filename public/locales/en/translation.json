@@ -44,7 +44,9 @@
     "channelId": "Channel ID",
     "channelSecret": "Channel Secret",
     "channelAccessToken": "Channel Access Token",
-    "seeTutorial": "See Tutorial"
+    "seeTutorial": "See Tutorial",
+    "webhookUrl": "Webhook URL",
+    "webhookHint": "The webhook URL will only be displayed upon creation. Please keep it safe."
   },
   "notFoundPage": {
     "title": "Page Not Found",
@@ -53,6 +55,7 @@
   "common": {
     "loading": "Loading...",
     "enable": "Enable",
+    "close": "Close",
     "cancel": "Cancel",
     "done": "Done",
     "or": "OR",

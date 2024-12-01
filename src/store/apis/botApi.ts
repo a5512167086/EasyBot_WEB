@@ -8,6 +8,17 @@ export type BotsResponse = {
   owner_id: string
 }
 
+export type CreateBotRequest = {
+  bot_name: string
+  bot_channel_id: string
+  bot_channel_access_token: string
+  bot_channel_secret: string
+}
+
+export type CreateBotResponse = {
+  webhook_url: string
+}
+
 export const botApi = createApi({
   reducerPath: 'botApi',
   baseQuery: fetchBaseQuery({
@@ -29,8 +40,15 @@ export const botApi = createApi({
         url: 'bots',
         method: 'GET'
       })
+    }),
+    createBot: builder.mutation<CreateBotResponse, CreateBotRequest>({
+      query: (bot) => ({
+        url: 'bot',
+        method: 'POST',
+        body: bot
+      })
     })
   })
 })
 
-export const { useGetBotsQuery } = botApi
+export const { useGetBotsQuery, useCreateBotMutation } = botApi

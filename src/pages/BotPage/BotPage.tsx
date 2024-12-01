@@ -1,6 +1,13 @@
 import { CustomCard } from '@/components/CustomCard'
-import { StyledBotPage } from './BotPage.style'
-import { Breadcrumbs, Grid2 } from '@mui/material'
+import { BotPageModalStyle, StyledBotPage } from './BotPage.style'
+import {
+  Breadcrumbs,
+  Grid2,
+  Modal,
+  Box,
+  Typography,
+  Button
+} from '@mui/material'
 import { ActionType } from '@/components/CustomCard/CustomCard.type'
 import SettingsIcon from '@mui/icons-material/Settings'
 import AddIcon from '@/assets/add_icon.png'
@@ -11,7 +18,7 @@ import { CustomLink } from '@/components/CustomLink'
 import { PAGE_PATHS } from '@/routes'
 import { useNavigate } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { useGetBotsQuery } from '@/store/apis/botApi'
+import { useCreateBotMutation, useGetBotsQuery } from '@/store/apis/botApi'
 import { useAppSelector } from '@/utils/hook'
 
 const dialogFields = [
@@ -49,15 +56,21 @@ const botPageContent = {
   title: 'botPage.myBot',
   addBot: 'botPage.addBot',
   seeTutorial: 'botPage.seeTutorial',
-  setting: 'common.setting'
+  setting: 'common.setting',
+  modalTitle: 'botPage.webhookUrl',
+  modalDescription: 'botPage.webhookHint',
+  modalClose: 'common.close'
 }
 
 export const BotPage = () => {
-  const { botList } = useAppSelector((state) => state.bot)
   const navigate = useNavigate()
   const { t } = useTranslation()
+  const { botList } = useAppSelector((state) => state.bot)
+  const { refetch } = useGetBotsQuery()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
-  useGetBotsQuery()
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [newLineBotWebhookUrl, setNewLineBotWebhookUrl] = useState('')
+  const [createBot] = useCreateBotMutation()
 
   const handleDialogOpen = () => {
     setIsDialogOpen(true)
@@ -67,9 +80,39 @@ export const BotPage = () => {
     setIsDialogOpen(false)
   }
 
+  const handleModalOpen = (webhookUrl: string) => {
+    setIsModalOpen(true)
+    setNewLineBotWebhookUrl(webhookUrl)
+  }
+
+  const handleModalClose = () => {
+    setIsModalOpen(false)
+    setNewLineBotWebhookUrl('')
+  }
+
   const handleBotSetting = () => {
     navigate(PAGE_PATHS.MODULE_LIST)
   }
+
+  const handleCreateBot = async (data: {
+    botName: string
+    channelId: string
+    channelAccessToken: string
+    channelSecret: string
+  }) => {
+    await createBot({
+      bot_name: data.botName,
+      bot_channel_id: data.channelId,
+      bot_channel_access_token: data.channelAccessToken,
+      bot_channel_secret: data.channelSecret
+    })
+      .unwrap()
+      .then((data) => {
+        handleModalOpen(data.webhook_url)
+        refetch()
+      })
+  }
+
   return (
     <StyledBotPage maxWidth="lg">
       <Breadcrumbs
@@ -116,17 +159,50 @@ export const BotPage = () => {
           </Grid2>
         ))}
       </Grid2>
-      <CustomDialog
+      <CustomDialog<{
+        botName: string
+        channelId: string
+        channelAccessToken: string
+        channelSecret: string
+      }>
         isOpen={isDialogOpen}
         handleClose={handleDialogClose}
         fields={dialogFields}
-        title="botPage.addBot"
-        onSubmit={(data) => {
-          console.log(data)
-        }}
+        title={botPageContent.addBot}
+        onSubmit={(data) => handleCreateBot(data)}
         linkText={botPageContent.seeTutorial}
         link={PAGE_PATHS.CREATE_BOT_TURTROIAL}
       />
+      <Modal
+        open={isModalOpen}
+        onClose={(_event, reason) => {
+          if (reason === 'backdropClick') return
+          handleModalClose()
+        }}
+        disableEscapeKeyDown
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={BotPageModalStyle.modalBox}>
+          <Typography variant="h5" component="h2" id="modal-modal-title">
+            {t(botPageContent.modalTitle)}
+          </Typography>
+          <Typography variant="h6" id="modal-modal-title">
+            {t(botPageContent.modalDescription)}
+          </Typography>
+          <Typography
+            id="modal-modal-description"
+            sx={BotPageModalStyle.modalDescription}
+          >
+            {newLineBotWebhookUrl}
+          </Typography>
+          <Box sx={BotPageModalStyle.modalButton}>
+            <Button variant="outlined" onClick={handleModalClose}>
+              {t(botPageContent.modalClose)}
+            </Button>
+          </Box>
+        </Box>
+      </Modal>
     </StyledBotPage>
   )
 }

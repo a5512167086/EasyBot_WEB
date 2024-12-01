@@ -6,12 +6,12 @@ interface FieldProps {
   required?: boolean
 }
 
-export type CustomDialogProps = {
+export type CustomDialogProps<T = Record<string, unknown>> = {
   isOpen: boolean
   handleClose: () => void
   fields: FieldProps[]
   title: string
   linkText?: string
   link?: string
-  onSubmit: (data: Record<string, unknown>) => void
+  onSubmit: (data: T) => void
 }
